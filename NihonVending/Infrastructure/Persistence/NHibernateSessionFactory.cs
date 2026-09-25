@@ -2,6 +2,7 @@ using NHibernate;
 using NHibernate.Cfg;
 using Npgsql;
 using DotNetEnv;
+using NihonVending.Domain;
 
 public static class NHibernateSessionFactory
 {
@@ -44,6 +45,9 @@ public static class NHibernateSessionFactory
             db.Driver<NHibernate.Driver.NpgsqlDriver>();
             db.Dialect<NHibernate.Dialect.PostgreSQLDialect>();
         });
+
+        // NHibernate searches whole directory for mappings
+        configuration.AddAssembly(typeof(VendingMachine).Assembly);
 
         return configuration.BuildSessionFactory();
     }

@@ -13,4 +13,8 @@
     <PackageReference Include="Npgsql" Version="10.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="Infrastructure\Persistence\Mappings\VendingMachine.hbm.xml" />
+  </ItemGroup>
+
 </Project>

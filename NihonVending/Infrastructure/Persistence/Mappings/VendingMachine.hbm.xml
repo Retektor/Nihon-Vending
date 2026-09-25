@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mappingxmlns="urn:nhibernate-mapping-2.2" assembly="NihonVending" namespace="NihonVending.Domain">
+
+  <class name="NihonVending.Domain" table="vending_machines">
+
+    <id name="Id" type="long" column="id">
+      <generator class="sequence">
+        <param name="sequence">vending_machine_id_seq</param>
+      </generator>
+    </id>
+
+    <property name="Name"
+              column="name"
+              type="String"
+              not-null="true" />
+
+    <property name="Latitude"
+              column="latitude"
+              type="Decimal"
+              not-null="true"
+              precision="8"
+              scale="6" />
+
+    <property name="Longitude"
+              column="longitude"
+              type="Decimal"
+              not-null="true"
+              precision="9"
+              scale="6" />
+
+    <property name="City"
+              column="city"
+              type="String"
+              not-null="false" />
+
+    <property name="Category"
+              column="category"
+              type="String"
+              not-null="true" />
+
+    <property name="Source"
+              column="source"
+              type="String"
+              not-null="true" />
+
+  </class>
+</hibernate-mapping>
