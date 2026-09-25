@@ -57,10 +57,10 @@ jobs:
         docker compose logs db
         exit 1
         
-    - name: Project integrity test
+    - name: Core integrity test
       run: dotnet test NihonVending --no-build --verbosity normal
       
-    - name: Integration testing
+    - name: Integration tests
       run: dotnet test NihonVending.IntegrationTests --no-build --configuration Release
 
     - name: Stop database container
