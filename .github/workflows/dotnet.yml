@@ -60,8 +60,8 @@ jobs:
     - name: Project integrity test
       run: dotnet test NihonVending --no-build --verbosity normal
       
-    - name: Unit testing
-      run: dotnet test NihonVending.Tests --no-build --configuration Release
+    - name: Integration testing
+      run: dotnet test NihonVending.IntegrationTests --no-build --configuration Release
 
     - name: Stop database container
       if: always()

@@ -1,4 +1,4 @@
-﻿namespace NihonVending.Tests;
+﻿namespace NihonVending.IntegrationTests;
 
 using System.Data;
 
