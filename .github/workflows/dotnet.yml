@@ -14,7 +14,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    environment: testing
+    environment:
+      name: testing
+      deployment: false
 
     env:
       POSTGRES_HOST: localhost
