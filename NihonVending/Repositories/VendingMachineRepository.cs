@@ -23,7 +23,7 @@ public class VendingMachineRepository : IVendingMachineRepository
             .ToList();
     }
 
-    public VendingMachine GetById(int id)
+    public VendingMachine? GetById(int id)
     {
         return _session.Get<VendingMachine>(id);
     }

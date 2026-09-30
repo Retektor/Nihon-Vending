@@ -8,7 +8,7 @@ public interface IVendingMachineRepository
 
     IReadOnlyList<VendingMachine> GetAll();
 
-    VendingMachine GetById(int id);
+    VendingMachine? GetById(int id);
 
     void Update(VendingMachine vendingMachine);
 
