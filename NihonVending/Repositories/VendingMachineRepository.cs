@@ -11,9 +11,10 @@ public class VendingMachineRepository : IVendingMachineRepository
         _session = session;
     }
 
-    public void Create(VendingMachine vendingMachine)
+    public VendingMachine Create(VendingMachine vendingMachine)
     {
         _session.Save(vendingMachine);
+        return vendingMachine;
     }
 
     public IReadOnlyList<VendingMachine> GetAll()
@@ -28,9 +29,10 @@ public class VendingMachineRepository : IVendingMachineRepository
         return _session.Get<VendingMachine>(id);
     }
 
-    public void Update(VendingMachine vendingMachine)
+    public VendingMachine Update(VendingMachine vendingMachine)
     {
         _session.Update(vendingMachine);
+        return vendingMachine;
     }
 
     public void Delete(VendingMachine vendingMachine)

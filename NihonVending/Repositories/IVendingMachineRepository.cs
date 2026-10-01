@@ -4,13 +4,13 @@ namespace NihonVending.Repositories;
 
 public interface IVendingMachineRepository
 {
-    void Create(VendingMachine vendingMachine);
+    VendingMachine Create(VendingMachine vendingMachine);
 
     IReadOnlyList<VendingMachine> GetAll();
 
     VendingMachine? GetById(int id);
 
-    void Update(VendingMachine vendingMachine);
+    VendingMachine Update(VendingMachine vendingMachine);
 
     void Delete(VendingMachine vendingMachine);
 }
