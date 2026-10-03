@@ -1,5 +1,5 @@
-using NihonVending.Repositories;
 using NihonVending.Domain;
+using NihonVending.Repositories;
 using NHSession = NHibernate.ISession;
 
 public class VendingMachineRepository : IVendingMachineRepository
@@ -24,19 +24,28 @@ public class VendingMachineRepository : IVendingMachineRepository
             .ToList();
     }
 
-    public VendingMachine? GetById(int id)
+    public VendingMachine? GetById(long id)
     {
         return _session.Get<VendingMachine>(id);
     }
 
-    public VendingMachine Update(VendingMachine vendingMachine)
+    public VendingMachine Update(long id, VendingMachine newMachineData)
     {
-        _session.Update(vendingMachine);
-        return vendingMachine;
+        var machine = _session.Get<VendingMachine>(id) ?? throw new KeyNotFoundException(
+            $"Vending machine with ID {id} was not found.");
+        machine.Name = newMachineData.Name;
+        machine.Latitude = newMachineData.Latitude;
+        machine.Longitude = newMachineData.Longitude;
+        machine.City = newMachineData.City;
+        machine.Category = newMachineData.Category;
+        machine.Source = newMachineData.Source;
+
+        return machine;
     }
 
-    public void Delete(VendingMachine vendingMachine)
+    public void Delete(long id)
     {
-        _session.Delete(vendingMachine);
+        var machine = _session.Load<VendingMachine>(id);
+        _session.Delete(machine);
     }
 }
