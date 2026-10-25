@@ -1,7 +1,9 @@
 using AutoMapper;
+using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using NihonVending.Domain;
 using NihonVending.Domain.DTOs;
+using NihonVending.Infrastructure.Mappers;
 using NihonVending.Repositories;
 using NihonVending.Services;
 
@@ -25,14 +27,14 @@ public class VendingMachineServiceTests
             .Setup(r => r.Create(It.IsAny<VendingMachine>()))
             .Returns(vendingMachine);
 
-        var mapper = new Mock<IMapper>();
-        mapper
-            .Setup(mapper => mapper.Map<VendingMachine>(request))
-            .Returns(vendingMachine);
+        var mapperConfig = new MapperConfiguration(
+                cfg => cfg.AddProfile<VendingMachineProfile>(),
+                NullLoggerFactory.Instance);
+        var mapper = mapperConfig.CreateMapper();
 
         var service = new VendingMachineService(
             repository.Object,
-            mapper.Object
+            mapper
         );
 
 
@@ -66,11 +68,14 @@ public class VendingMachineServiceTests
         };
 
         var repository = new Mock<IVendingMachineRepository>();
-        var mapper = new Mock<IMapper>();
+        var mapperConfig = new MapperConfiguration(
+                cfg => cfg.AddProfile<VendingMachineProfile>(),
+                NullLoggerFactory.Instance);
+        var mapper = mapperConfig.CreateMapper();
 
         var service = new VendingMachineService(
             repository.Object,
-            mapper.Object);
+            mapper);
 
         Assert.Throws<ArgumentException>(
             () => service.Create(request));
@@ -100,11 +105,14 @@ public class VendingMachineServiceTests
             .Setup(r => r.GetAll())
             .Returns(machinesList);
 
-        var mapper = new Mock<IMapper>();
+        var mapperConfig = new MapperConfiguration(
+                cfg => cfg.AddProfile<VendingMachineProfile>(),
+                NullLoggerFactory.Instance);
+        var mapper = mapperConfig.CreateMapper();
 
         var service = new VendingMachineService(
             repository.Object,
-            mapper.Object
+            mapper
         );
 
 
@@ -139,11 +147,14 @@ public class VendingMachineServiceTests
             .Setup(r => r.GetAll())
             .Returns(machinesList);
 
-        var mapper = new Mock<IMapper>();
+        var mapperConfig = new MapperConfiguration(
+                cfg => cfg.AddProfile<VendingMachineProfile>(),
+                NullLoggerFactory.Instance);
+        var mapper = mapperConfig.CreateMapper();
 
         var service = new VendingMachineService(
             repository.Object,
-            mapper.Object
+            mapper
         );
 
 
@@ -167,11 +178,14 @@ public class VendingMachineServiceTests
             .Setup(r => r.GetById(1))
             .Returns(machine);
 
-        var mapper = new Mock<IMapper>();
+        var mapperConfig = new MapperConfiguration(
+                cfg => cfg.AddProfile<VendingMachineProfile>(),
+                NullLoggerFactory.Instance);
+        var mapper = mapperConfig.CreateMapper();
 
         var service = new VendingMachineService(
             repository.Object,
-            mapper.Object
+            mapper
         );
 
 
@@ -196,11 +210,14 @@ public class VendingMachineServiceTests
             .Setup(r => r.GetById(999))
             .Returns((VendingMachine?)null);
 
-        var mapper = new Mock<IMapper>();
+        var mapperConfig = new MapperConfiguration(
+                cfg => cfg.AddProfile<VendingMachineProfile>(),
+                NullLoggerFactory.Instance);
+        var mapper = mapperConfig.CreateMapper();
 
         var service = new VendingMachineService(
             repository.Object,
-            mapper.Object
+            mapper
         );
 
 
@@ -237,14 +254,14 @@ public class VendingMachineServiceTests
                 It.IsAny<VendingMachine>()))
             .Returns(vendingMachine);
 
-        var mapper = new Mock<IMapper>();
-        mapper
-            .Setup(mapper => mapper.Map<VendingMachine>(request))
-            .Returns(vendingMachine);
+        var mapperConfig = new MapperConfiguration(
+                cfg => cfg.AddProfile<VendingMachineProfile>(),
+                NullLoggerFactory.Instance);
+        var mapper = mapperConfig.CreateMapper();
 
         var service = new VendingMachineService(
             repository.Object,
-            mapper.Object
+            mapper
         );
 
 
@@ -282,11 +299,14 @@ public class VendingMachineServiceTests
             .Setup(r => r.GetById(request.Id))
             .Returns((VendingMachine?)null);
 
-        var mapper = new Mock<IMapper>();
+        var mapperConfig = new MapperConfiguration(
+                cfg => cfg.AddProfile<VendingMachineProfile>(),
+                NullLoggerFactory.Instance);
+        var mapper = mapperConfig.CreateMapper();
 
         var service = new VendingMachineService(
             repository.Object,
-            mapper.Object
+            mapper
         );
 
 
@@ -325,11 +345,14 @@ public class VendingMachineServiceTests
 
         var repository = new Mock<IVendingMachineRepository>();
 
-        var mapper = new Mock<IMapper>();
+        var mapperConfig = new MapperConfiguration(
+                cfg => cfg.AddProfile<VendingMachineProfile>(),
+                NullLoggerFactory.Instance);
+        var mapper = mapperConfig.CreateMapper();
 
         var service = new VendingMachineService(
             repository.Object,
-            mapper.Object
+            mapper
         );
 
 
@@ -363,11 +386,14 @@ public class VendingMachineServiceTests
             .Setup(r => r.GetById(testId))
             .Returns(vendingMachine);
 
-        var mapper = new Mock<IMapper>();
+        var mapperConfig = new MapperConfiguration(
+                cfg => cfg.AddProfile<VendingMachineProfile>(),
+                NullLoggerFactory.Instance);
+        var mapper = mapperConfig.CreateMapper();
 
         var service = new VendingMachineService(
             repository.Object,
-            mapper.Object
+            mapper
         );
 
 
@@ -388,11 +414,14 @@ public class VendingMachineServiceTests
     {
         var repository = new Mock<IVendingMachineRepository>();
 
-        var mapper = new Mock<IMapper>();
+        var mapperConfig = new MapperConfiguration(
+                cfg => cfg.AddProfile<VendingMachineProfile>(),
+                NullLoggerFactory.Instance);
+        var mapper = mapperConfig.CreateMapper();
 
         var service = new VendingMachineService(
             repository.Object,
-            mapper.Object
+            mapper
         );
 
 
