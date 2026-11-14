@@ -1,6 +1,7 @@
 ﻿namespace NihonVending.IntegrationTests;
 
 using System.Data;
+using NihonVending.Infrastructure.Persistence;
 
 public class DatabaseConnectionTests
 {

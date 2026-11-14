@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.Extensions.Logging.Abstractions;
 using NihonVending.Domain.DTOs;
 using NihonVending.Infrastructure.Mappers;
+using NihonVending.Infrastructure.Persistence;
 using NihonVending.Services;
 
 namespace NihonVending.IntegrationTests.Services;
@@ -24,7 +25,6 @@ public class VendingMachineServiceIT
         };
 
         using (var session = NHibernateSessionFactory.OpenSession())
-        using (var transaction = session.BeginTransaction())
         {
             var repository = new VendingMachineRepository(session);
 
@@ -36,7 +36,6 @@ public class VendingMachineServiceIT
             var service = new VendingMachineService(repository, mapper);
 
             id = service.Create(request).Id;
-            transaction.Commit();
         }
 
         using (var session = NHibernateSessionFactory.OpenSession())
@@ -96,7 +95,6 @@ public class VendingMachineServiceIT
         List<long> idList = [];
 
         using (var session = NHibernateSessionFactory.OpenSession())
-        using (var transaction = session.BeginTransaction())
         {
             var repository = new VendingMachineRepository(session);
 
@@ -112,8 +110,6 @@ public class VendingMachineServiceIT
                 id = service.Create(r).Id;
                 idList.Add(id);
             }
-
-            transaction.Commit();
         }
 
         using (var session = NHibernateSessionFactory.OpenSession())
@@ -129,13 +125,19 @@ public class VendingMachineServiceIT
 
             var fetchedMachines = service.GetAll();
 
-            for (int i = 0; i < requestList.Count; i++)
-            {
-                VendingMachineDto machine = fetchedMachines[i];
-                VendingMachineCreateRequest request = requestList[i];
+            Assert.True(fetchedMachines.Count >= requestList.Count);
 
-                Assert.NotNull(machine);
-                AssertMachine(machine, request);
+            // We use custom iteration instead of AssertMachine
+            // because DB population SQL shifts indexes of machines
+            foreach (var request in requestList)
+            {
+                Assert.Contains(fetchedMachines, m =>
+                    m.Name == request.Name &&
+                    m.Latitude == request.Latitude &&
+                    m.Longitude == request.Longitude &&
+                    m.City == request.City &&
+                    m.Category == request.Category &&
+                    m.Source == request.Source);
             }
         }
     }
@@ -156,7 +158,6 @@ public class VendingMachineServiceIT
         };
 
         using (var session = NHibernateSessionFactory.OpenSession())
-        using (var transaction = session.BeginTransaction())
         {
             var repository = new VendingMachineRepository(session);
 
@@ -168,8 +169,6 @@ public class VendingMachineServiceIT
             var service = new VendingMachineService(repository, mapper);
 
             id = service.Create(request).Id;
-
-            transaction.Commit();
         }
 
         using (var session = NHibernateSessionFactory.OpenSession())
@@ -206,7 +205,6 @@ public class VendingMachineServiceIT
         };
 
         using (var session = NHibernateSessionFactory.OpenSession())
-        using (var transaction = session.BeginTransaction())
         {
             var repository = new VendingMachineRepository(session);
 
@@ -218,8 +216,6 @@ public class VendingMachineServiceIT
             var service = new VendingMachineService(repository, mapper);
 
             id = service.Create(createRequest).Id;
-
-            transaction.Commit();
         }
 
         VendingMachineUpdateRequest updateRequest = new()
@@ -268,7 +264,6 @@ public class VendingMachineServiceIT
         };
 
         using (var session = NHibernateSessionFactory.OpenSession())
-        using (var transaction = session.BeginTransaction())
         {
             var repository = new VendingMachineRepository(session);
 
@@ -280,8 +275,6 @@ public class VendingMachineServiceIT
             var service = new VendingMachineService(repository, mapper);
 
             id = service.Create(createRequest).Id;
-
-            transaction.Commit();
         }
 
         using (var session = NHibernateSessionFactory.OpenSession())

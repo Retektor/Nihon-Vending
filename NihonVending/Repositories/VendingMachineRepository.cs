@@ -13,7 +13,9 @@ public class VendingMachineRepository : IVendingMachineRepository
 
     public VendingMachine Create(VendingMachine vendingMachine)
     {
+        using var transaction = _session.BeginTransaction();
         _session.Save(vendingMachine);
+        transaction.Commit();
         return vendingMachine;
     }
 

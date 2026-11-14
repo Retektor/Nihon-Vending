@@ -1,5 +1,6 @@
-using NihonVending.Domain;
 using NHibernate.Exceptions;
+using NihonVending.Domain;
+using NihonVending.Infrastructure.Persistence;
 
 namespace NihonVending.IntegrationTests;
 
@@ -46,28 +47,26 @@ public class VendingMachineIT
     [Fact]
     public void VendingMachine_lat_and_lon_constraints_raise_error()
     {
-        using (var session = NHibernateSessionFactory.OpenSession())
-        using (var transaction = session.BeginTransaction())
+        using var session = NHibernateSessionFactory.OpenSession();
+        using var transaction = session.BeginTransaction();
+        var vendingMachine = new VendingMachine
         {
-            var vendingMachine = new VendingMachine
-            {
-                Name = "Regular Vending Machine",
-                Latitude = 91,
-                Longitude = -181,
-                City = "Osaka",
-                Category = "snacks",
-                Source = "https://www.google.com/maps",
-            };
+            Name = "Regular Vending Machine",
+            Latitude = 91,
+            Longitude = -181,
+            City = "Osaka",
+            Category = "snacks",
+            Source = "https://www.google.com/maps",
+        };
 
-            session.Save(vendingMachine);
+        session.Save(vendingMachine);
 
-            var exception = Assert.Throws<GenericADOException>(
-                () => session.Flush());
+        var exception = Assert.Throws<GenericADOException>(
+            () => session.Flush());
 
-            transaction.Rollback();
+        transaction.Rollback();
 
-            Assert.NotNull(exception);
-            Assert.NotNull(exception.InnerException);
-        }
+        Assert.NotNull(exception);
+        Assert.NotNull(exception.InnerException);
     }
 }

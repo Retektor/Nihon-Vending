@@ -1,8 +1,10 @@
+using DotNetEnv;
 using NHibernate;
 using NHibernate.Cfg;
-using Npgsql;
-using DotNetEnv;
 using NihonVending.Domain;
+using Npgsql;
+
+namespace NihonVending.Infrastructure.Persistence;
 
 public static class NHibernateSessionFactory
 {
