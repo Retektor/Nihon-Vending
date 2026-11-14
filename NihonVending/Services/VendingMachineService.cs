@@ -5,8 +5,6 @@ using NihonVending.Repositories;
 
 namespace NihonVending.Services;
 
-// TODO: REFACTOR VARIABLE NAMES FOR MORE CONSISTENCY
-// TODO: REFACTOR IDENTATION FOR MORE CONSISTENCY
 public class VendingMachineService(
     IVendingMachineRepository repo,
     IMapper mapper) : IVendingMachineService

@@ -6,8 +6,6 @@ using NihonVending.Services;
 
 namespace NihonVending.IntegrationTests.Services;
 
-// TODO: REFACTOR VARIABLE NAMES FOR MORE CONSISTENCY
-// TODO: REFACTOR IDENTATION FOR MORE CONSISTENCY
 public class VendingMachineServiceIT
 {
     [Fact]

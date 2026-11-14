@@ -7,8 +7,6 @@ using NihonVending.Infrastructure.Mappers;
 using NihonVending.Repositories;
 using NihonVending.Services;
 
-// TODO: REFACTOR VARIABLE NAMES FOR MORE CONSISTENCY
-// TODO: REFACTOR IDENTATION FOR MORE CONSISTENCY
 public class VendingMachineServiceTests
 {
     [Fact]
